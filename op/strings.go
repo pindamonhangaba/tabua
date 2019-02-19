@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-//Q encases a Named object in quotes
-func Q(n tab.Named) string {
+//Q encases a Namer object in quotes
+func Q(n tab.Namer) string {
 	return tab.NameQuotes + n.Name() + tab.NameQuotes
 }
 
@@ -23,11 +23,24 @@ func Join(cols ...tab.Column) string {
 
 // Columns returns an array with column names
 func Columns(cols ...tab.Column) []string {
+	return columns(false, cols...)
+}
+
+// QualifiedColumns returns an array with column names, qualified with their table name
+func QualifiedColumns(cols ...tab.Column) []string {
+	return columns(true, cols...)
+}
+
+func columns(withTableName bool, cols ...tab.Column) []string {
 	flatCols := []string{}
 	for _, c := range cols {
 		tname := Q(c.Table())
 		cname := Q(c)
-		flatCols = append(flatCols, tname+"."+cname)
+		n := cname
+		if withTableName {
+			n = tname + "." + cname
+		}
+		flatCols = append(flatCols, n)
 	}
 	return flatCols
 }
