@@ -2,6 +2,7 @@ package op
 
 import (
 	tab "github.com/pindamonhangaba/tabua"
+	tcol "github.com/pindamonhangaba/tabua/column"
 )
 
 // IList returns Columns as an interface{} list
@@ -63,7 +64,7 @@ func NullFill(set []tab.Column, subset []tab.Column) (i []tab.Column) {
 		if has {
 			i = append(i, oc)
 		} else {
-			i = append(i, tab.NullCol(col))
+			i = append(i, tcol.NullCol(col))
 		}
 	}
 	return i

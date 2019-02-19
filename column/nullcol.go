@@ -26,14 +26,6 @@ func (n nullCol) NonNull() bool {
 	return n.origenCol.NonNull()
 }
 
-func (n nullCol) PK() (tbu.PKConstrainer, bool) {
-	return n.origenCol.PK()
-}
-
-func (n nullCol) FK() (tbu.FKConstrainer, bool) {
-	return n.origenCol.FK()
-}
-
 func (n nullCol) Table() tbu.Table {
 	return n.origenCol.Table()
 }
